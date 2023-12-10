@@ -1,19 +1,26 @@
 import React, { useState } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { increment,decrement } from '../slices/counterSlice';
 
 const Home = () => {
     let [count, setCount] = useState(0);
     let [error, setError] = useState("");
-    let handleIncrement = ()=>{
+    const data = useSelector((state) => state)
+    console.log(data);
+    const dispatch = useDispatch()
+    let handleIncrement = () => {
         setError("");
         count++;
         setCount(count);
+        dispatch(increment(count));
     }
 
-    let handleDecrement = ()=>{
-        if(count > 0){
+    let handleDecrement = () => {
+        if (count > 0) {
             count--;
             setCount(count);
-        }else{
+            dispatch(decrement(count));
+        } else {
             setError("Negative value not Allow");
         }
     }
